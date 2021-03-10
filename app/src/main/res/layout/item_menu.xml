@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+
+    <TextView
+        android:id="@+id/restaurant_product"
+        style="@style/AppTheme.Headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginBottom="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Product" />
+    <TextView
+        android:id="@+id/restaurant_price"
+        style="@style/AppTheme.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/restaurant_product"
+        android:layout_marginLeft="95dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/greySecondary"
+        tools:ignore="UnknownId"
+        tools:text="Price" />
+
+
+
+
+    <TextView
+        android:id="@+id/restaurant_description"
+        style="@style/AppTheme.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/restaurant_price"
+        android:layout_marginLeft="95dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/greySecondary"
+        tools:ignore="UnknownId"
+        tools:text="Description" />
+
+
+</RelativeLayout>

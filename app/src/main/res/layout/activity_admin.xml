@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.example.fypfoodtruck.fypfoodtruck.Admin">
+    <EditText
+        android:id="@+id/edit_text_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="text" />
+    <Spinner
+        android:id="@+id/spinner_category"
+        style="@style/AppTheme.FilterSpinner"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/icon_category"
+        android:entries="@array/categories" />
+    <EditText
+        android:id="@+id/edit_text_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:inputType="text" />
+    <Spinner
+        android:id="@+id/spinner_county"
+        style="@style/AppTheme.FilterSpinner"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/icon_city"
+        android:entries="@array/counties" />
+    <EditText
+        android:id="@+id/edit_text_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Number"
+        android:inputType="number" />
+    <EditText
+        android:id="@+id/edit_text_website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Website"
+        android:inputType="text" />
+    <Button
+        android:id="@+id/add_business"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addBusiness"
+        android:text="Add"
+        />
+
+    <TextView
+        android:id="@+id/text_view_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+
+</LinearLayout>

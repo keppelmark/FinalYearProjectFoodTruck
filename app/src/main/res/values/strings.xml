@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">FYP Food Truck</string>
+
+    <string name="value_any_category">All food</string>
+    <string name="value_any_county">Anywhere</string>
+    <string name="value_any_name">Any name</string>
+
+
+    <string name="label_category">Category</string>
+    <string name="label_county">County</string>
+    <string name="label_name">Name</string>
+    <string name="label_sort_by">Sort By</string>
+
+    <string name="all_restaurants">All Restaurants</string>
+    <string name="header_filters">Filter</string>
+    <string name="search">Search</string>
+
+    <string name="sort_by_name">Sort by Name</string>
+    <string name="sort_by_category">Sort by Category</string>
+    <string name="sort_by_county">Sort by County</string>
+
+    <string name="sorted_by_name">sorted by name</string>
+    <string name="sorted_by_category">sorted by category</string>
+    <string name="sorted_by_county">sorted by county</string>
+
+    <string name="add_random_items">Add Random Items</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="delete_all">Delete All</string>
+    <string name="divider_bullet">•</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
+    <string name="message_no_reviews">Be the first to leave a review!</string>
+    <string name="hint_review">How was your experience?</string>
+    <string name="submit">Submit</string>
+    <string name="filter_add_review">Add review</string>
+    <string name="pay">pay</string>
+
+    <!-- Types of food -->
+    <string-array name="categories">
+        <item>@string/value_any_category</item>
+
+        <item>Brunch</item>
+        <item>Burgers</item>
+        <item>Coffee</item>
+        <item>Deli</item>
+        <item>Indian</item>
+        <item>Italian</item>
+        <item>Mediterranean</item>
+        <item>Mexican</item>
+        <item>Pizza</item>
+        <item>Sushi</item>
+    </string-array>
+    ite
+
+    <!-- 32 counties in Ireland -->
+    <string-array name="counties">
+        <item>@string/value_any_county</item>
+
+        <item>Antrim</item>
+        <item>Armagh</item>
+        <item>Carlow</item>
+        <item>Cavan</item>
+        <item>Clare</item>
+        <item>Cork</item>
+        <item>Derry</item>
+        <item>Donegal</item>
+        <item>Down</item>
+        <item>Dublin</item>
+        <item>Fermanagh</item>
+        <item>Galway</item>
+        <item>Kerry</item>
+        <item>Kildare</item>
+        <item>Kilkenny</item>
+        <item>Laois</item>
+        <item>Leitrim</item>
+        <item>Limerick</item>
+        <item>Longford</item>
+        <item>Louth</item>
+        <item>Mayo</item>
+        <item>Meath</item>
+        <item>Monaghan</item>
+        <item>Offaly</item>
+        <item>Roscommon</item>
+        <item>Sligo</item>
+        <item>Tipperary</item>
+        <item>Tyrone</item>
+        <item>Waterford</item>
+        <item>Westmeath</item>
+        <item>Wexford</item>
+        <item>Wicklow</item>
+    </string-array>
+
+
+    <!-- Ways you can sort restaurants -->
+    <string-array name="sort_by">
+        <item>@string/sort_by_name</item>
+        <item>@string/sort_by_category</item>
+        <item>@string/sort_by_county</item>
+    </string-array>
+</resources>
