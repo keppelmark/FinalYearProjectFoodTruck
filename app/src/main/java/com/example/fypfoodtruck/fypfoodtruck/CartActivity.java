@@ -1,5 +1,6 @@
 package com.example.fypfoodtruck.fypfoodtruck;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -32,8 +33,8 @@ public class CartActivity extends AppCompatActivity {
     CartAdapter cartAdapter;
     LinearLayout proceedToBook;
     Context context;
-    private Toolbar mToolbar;
 
+    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
         context = this;
         temparraylist = new ArrayList<>();
-        mToolbar = findViewById(R.id.toolbar);
+        Toolbar mToolbar = findViewById(R.id.toolbar);
         proceedToBook = findViewById(R.id.proceed_to_book);
         grandTotal = findViewById(R.id.grand_total_cart);
         setSupportActionBar(mToolbar);
@@ -95,7 +96,7 @@ public class CartActivity extends AppCompatActivity {
         for (int i = 0; i < temparraylist.size(); i++) {
             grandTotalplus = grandTotalplus + temparraylist.get(i).getTotalCash();
         }
-        grandTotal.setText("Rs. " + grandTotalplus);
+        grandTotal.setText("" + grandTotalplus);
         cartRecyclerView = findViewById(R.id.recycler_view_cart);
         cartAdapter = new CartAdapter(temparraylist, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);

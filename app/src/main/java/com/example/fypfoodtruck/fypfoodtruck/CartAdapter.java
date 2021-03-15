@@ -1,5 +1,6 @@
 package com.example.fypfoodtruck.fypfoodtruck;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
 
+    @NotNull
     @Override
     public CartAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -42,6 +46,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         return new CartAdapter.ViewHolder(v);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(final CartAdapter.ViewHolder holder, final int position) {
         // holder.productCartImage.setImageResource(R.drawable.burger);
@@ -50,8 +55,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.productCartQuantity.setText(String.valueOf(cartModelArrayList.get(position).getProductQuantity()));
 
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions.placeholder(R.drawable.bag);
-        requestOptions.error(R.drawable.bag);
+        requestOptions.placeholder(R.drawable.food3);
+        requestOptions.error(R.drawable.food3);
         Log.d("imageurl", String.valueOf(cartModelArrayList.get(position).getProductImage()));
         Glide.with(context)
                 .setDefaultRequestOptions(requestOptions)
