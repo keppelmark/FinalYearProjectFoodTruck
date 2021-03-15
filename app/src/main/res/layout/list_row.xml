@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -12,7 +13,8 @@
         android:background="#fff"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:layout_marginBottom="5dp" >
+        android:layout_marginBottom="5dp"
+        tools:ignore="UselessParent">
 
         <!-- ListRow Left side Thumbnail image -->
 
@@ -20,15 +22,16 @@
             android:id="@+id/thumbnail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="7dip"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="7dip"
             android:padding="2dip" >
 
             <ImageView
                 android:id="@+id/list_image_cart"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
-                android:src="@drawable/food3" />
+                android:src="@drawable/food3"
+                android:contentDescription="TODO" />
         </LinearLayout>
 
         <!-- Title Of Song -->
@@ -40,32 +43,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_toEndOf="@+id/thumbnail"
             android:text="Pineapple"
             android:textColor="#040404"
-            android:textSize="15dip"
+            android:textSize="15sp"
             android:typeface="sans" />
 
         <LinearLayout
             android:id="@+id/cart_plus_minus_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_below="@+id/product_cart_code"
             android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/product_cart_price"
-                android:layout_width="26dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginLeft="60dip"
+                android:layout_marginStart="60dip"
                 android:layout_weight="0.23"
-                android:paddingRight="5dip"
-                android:text="Rs. 200"
+                android:paddingEnd="5dip"
+                android:text="10"
                 android:textColor="#1d1d1d"
-                android:textSize="12dip"
-                android:textStyle="bold" />
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
 
             <!-- <TextView
                  android:id="@+id/product_cart_quantity"
@@ -90,8 +94,8 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:paddingLeft="15dip"
                 android:paddingRight="15dip"
-                android:text="10"
-                android:textSize="12dip"
+                android:text="1"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <ImageView

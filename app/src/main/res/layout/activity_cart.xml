@@ -34,11 +34,12 @@
             android:text="Proceed €"
             android:textColor="#fff"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="NestedWeights,RtlHardcoded" />
 
         <TextView
             android:padding="15dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:id="@+id/grand_total_cart"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -47,7 +48,8 @@
             android:textColor="#fff"
             android:gravity="left|center_vertical"
             android:textStyle="bold"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            tools:ignore="RtlHardcoded" />
     </LinearLayout>
 
 </LinearLayout>
