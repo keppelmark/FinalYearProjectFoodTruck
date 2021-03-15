@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:gravity="right|center_vertical"
             android:padding="15dp"
-            android:text="Proceed €"
+            android:text="@string/proceed"
             android:textColor="#fff"
             android:textSize="24sp"
             android:textStyle="bold"
