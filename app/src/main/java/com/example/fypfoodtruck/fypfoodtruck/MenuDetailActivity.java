@@ -125,16 +125,14 @@ public class MenuDetailActivity extends AppCompatActivity implements ProductAdap
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (item.getItemId()) {
-            case R.id.cart_action:
-                if (cart_count < 1) {
-                    Toast.makeText(this, "there is no item in cart", Toast.LENGTH_SHORT).show();
-                } else {
-                    startActivity(new Intent(this, CartActivity.class));
-                }
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.cart_action) {
+            if (cart_count < 1) {
+                Toast.makeText(this, "there is no item in cart", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(this, CartActivity.class));
+            }
+        } else {
+            return super.onOptionsItemSelected(item);
         }
 
         return true;

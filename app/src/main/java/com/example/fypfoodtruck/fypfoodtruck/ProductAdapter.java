@@ -33,7 +33,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private HomeCallBack homeCallBack;
 
     public ProductAdapter(ArrayList<Item> productsArray, Context context, HomeCallBack mCallBackus) {
-        this.productsArray = productsArray;
+        ProductAdapter.productsArray = productsArray;
         this.context = context;
         this.homeCallBack = mCallBackus;
     }
@@ -42,7 +42,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public ProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product_adapter_layout, viewGroup, false);
-        return new ProductAdapter.ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     @Override
@@ -100,9 +100,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
 //
                 // from these lines of code we update badge count value
-                MenuDetailActivity.cart_count = 0;
+       /*         MenuDetailActivity.cart_count = 0;
                 for (int i1 = 0; i1 < cartModels.size(); i1++) {
-                    for (int j = i1 + 1; j < cartModels.size(); j++) {
+                    for (int j = i1 + 1; j < cartModels.size(); j++)
                         if (cartModels.get(i1).getProductImage().equals(cartModels.get(j).getProductImage())) {
                             cartModels.get(i1).setProductQuantity(cartModels.get(j).getProductQuantity());
                             cartModels.get(i1).setTotalCash(cartModels.get(j).getTotalCash());
@@ -112,7 +112,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                             Log.d("remove", String.valueOf(cartModels.size()));
 
                         }
-                    }
                 }
                 MenuDetailActivity.cart_count = cartModels.size();
 
@@ -135,7 +134,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
                         }
                     }
-                }
+                }*/
 
 
                 MenuDetailActivity.cart_count = cartModels.size();
@@ -163,7 +162,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         void updateCartCount(Context context);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productName;
 

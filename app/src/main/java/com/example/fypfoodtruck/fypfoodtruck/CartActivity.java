@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.example.fypfoodtruck.fypfoodtruck.ProductAdapter.cartModels;
 
@@ -46,7 +47,7 @@ public class CartActivity extends AppCompatActivity {
         proceedToBook = findViewById(R.id.proceed_to_book);
         grandTotal = findViewById(R.id.grand_total_cart);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Cart");
 
@@ -75,7 +76,7 @@ public class CartActivity extends AppCompatActivity {
 
         // from these lines of code we remove the duplicacy of cart and set last added quantity in cart
         // for replace same item
-        for (int i = 0; i < cartModels.size(); i++) {
+     /*   for (int i = 0; i < cartModels.size(); i++) {
             for (int j = i + 1; j < cartModels.size(); j++) {
                 if (cartModels.get(i).getProductImage().equals(cartModels.get(j).getProductImage())) {
                     cartModels.get(i).setProductQuantity(cartModels.get(j).getProductQuantity());
@@ -87,7 +88,7 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
 
-        }
+        }*/
         temparraylist.addAll(cartModels);
         cartModels.clear();
         Log.d("sizecart_11", String.valueOf(temparraylist.size()));
