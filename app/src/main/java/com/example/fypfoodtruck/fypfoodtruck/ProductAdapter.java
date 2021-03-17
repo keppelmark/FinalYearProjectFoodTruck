@@ -66,33 +66,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             quantity.setText(String.valueOf(0));
             final int[] cartCounter = {0};//{(arrayListImage.get(position).getStocks())};
             cartDecrement.setEnabled(false);
-            cartDecrement.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (cartCounter[0] == 1) {
-                        Toast.makeText(context, "cant add less than 0", Toast.LENGTH_SHORT).show();
-                    } else {
-                        cartCounter[0] -= 1;
-                        quantity.setText(String.valueOf(cartCounter[0]));
-                    }
-
-                }
-            });
-            cartIncrement.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cartDecrement.setEnabled(true);
-                    cartCounter[0] += 1;
+            cartDecrement.setOnClickListener(v15 -> {
+                if (cartCounter[0] == 1) {
+                    Toast.makeText(context, "cant add less than 0", Toast.LENGTH_SHORT).show();
+                } else {
+                    cartCounter[0] -= 1;
                     quantity.setText(String.valueOf(cartCounter[0]));
-
-
                 }
+
+            });
+            cartIncrement.setOnClickListener(v14 -> {
+                cartDecrement.setEnabled(true);
+                cartCounter[0] += 1;
+                quantity.setText(String.valueOf(cartCounter[0]));
+
+
             });
             viewCartDialog.setOnClickListener(v1 -> context.startActivity(new Intent(context, CartActivity.class)));
 
             dialog.show();
             updateQtyDialog.setOnClickListener(v12 -> {
-                Toast.makeText(context, String.valueOf(cartCounter[0]) + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, cartCounter[0] + "", Toast.LENGTH_SHORT).show();
 
                 // from these line of code we add items in cart
                 cartModel = new ProductImage();
@@ -127,29 +121,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 dialog.dismiss();
             });
 
-            closeDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MenuDetailActivity.cart_count = 0;
-                    for (int i1 = 0; i1 < cartModels.size(); i1++) {
-                        for (int j = i1 + 1; j < cartModels.size(); j++) {
-                            if (cartModels.get(i1).getProductImage().equals(cartModels.get(j).getProductImage())) {
-                                cartModels.get(i1).setProductQuantity(cartModels.get(j).getProductQuantity());
-                                cartModels.get(i1).setTotalCash(cartModels.get(j).getTotalCash());
-                                //          cartModels.get(i).setImageIdSlide(cartModels.get(j).getImageIdSlide());
-                                cartModels.remove(j);
-                                j--;
-                                Log.d("remove", String.valueOf(cartModels.size()));
+            closeDialog.setOnClickListener(v13 -> {
+                MenuDetailActivity.cart_count = 0;
+                for (int i1 = 0; i1 < cartModels.size(); i1++) {
+                    for (int j = i1 + 1; j < cartModels.size(); j++) {
+                        if (cartModels.get(i1).getProductImage().equals(cartModels.get(j).getProductImage())) {
+                            cartModels.get(i1).setProductQuantity(cartModels.get(j).getProductQuantity());
+                            cartModels.get(i1).setTotalCash(cartModels.get(j).getTotalCash());
+                            //          cartModels.get(i).setImageIdSlide(cartModels.get(j).getImageIdSlide());
+                            cartModels.remove(j);
+                            j--;
+                            Log.d("remove", String.valueOf(cartModels.size()));
 
-                            }
                         }
                     }
-
-
-                    MenuDetailActivity.cart_count = cartModels.size();
-                    homeCallBack.updateCartCount(context);
-                    dialog.dismiss();
                 }
+
+
+                MenuDetailActivity.cart_count = cartModels.size();
+                homeCallBack.updateCartCount(context);
+                dialog.dismiss();
             });
 
 
