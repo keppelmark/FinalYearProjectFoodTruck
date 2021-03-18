@@ -65,7 +65,7 @@ public class CheckoutActivity extends AppCompatActivity {
         // Create a PaymentIntent by calling the sample server's /create-payment-intent endpoint.
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
         String json = "{"
-                + "\"currency\":\"usd\","
+                + "\"currency\":\"eur\","
                 + "\"items\":["
                 + "{\"id\":\"photo_subscription\"}"
                 + "]"
