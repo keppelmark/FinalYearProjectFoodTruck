@@ -22,6 +22,7 @@ import com.stripe.android.model.ConfirmPaymentIntentParams;
 import com.stripe.android.model.PaymentIntent;
 import com.stripe.android.model.PaymentMethodCreateParams;
 import com.stripe.android.view.CardInputWidget;
+import com.stripe.android.view.CardMultilineWidget;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -81,8 +82,8 @@ public class CheckoutActivity extends AppCompatActivity {
         // Hook up the pay button to the card widget and stripe instance
         Button payButton = findViewById(R.id.payButton);
         payButton.setOnClickListener((View view) -> {
-            CardInputWidget cardInputWidget = findViewById(R.id.cardInputWidget);
-            PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
+            CardMultilineWidget cardMultilineWidget = findViewById(R.id.cardMultiLineWidget);
+            PaymentMethodCreateParams params = cardMultilineWidget.getPaymentMethodCreateParams();
             if (params != null) {
                 ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams
                         .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
@@ -100,7 +101,7 @@ public class CheckoutActivity extends AppCompatActivity {
         if (restartDemo) {
             builder.setPositiveButton("Restart demo",
                     (DialogInterface dialog, int index) -> {
-                        CardInputWidget cardInputWidget = findViewById(R.id.cardInputWidget);
+                        CardInputWidget cardInputWidget = findViewById(R.id.cardMultiLineWidget);
                         cardInputWidget.clear();
                         startCheckout();
                     });
