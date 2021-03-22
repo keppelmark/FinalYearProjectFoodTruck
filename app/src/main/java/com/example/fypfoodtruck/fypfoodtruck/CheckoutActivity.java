@@ -45,7 +45,7 @@ public class CheckoutActivity extends AppCompatActivity {
      * To run this app, follow the steps here: https://github.com/stripe-samples/accept-a-card-payment#how-to-run-locally
      */
     // 10.0.2.2 is the Android emulator's alias to localhost
-    private static final String BACKEND_URL = "http://10.0.2.2:4242/";
+    private static final String BACKEND_URL = "http://localhost:4242/";
 
     private final OkHttpClient httpClient = new OkHttpClient();
     private String paymentIntentClientSecret;
@@ -74,6 +74,7 @@ public class CheckoutActivity extends AppCompatActivity {
         RequestBody body = RequestBody.create(json, mediaType);
         Request request = new Request.Builder()
                 .url(BACKEND_URL + "create-payment-intent")
+                .addHeader("Connection", "close")
                 .post(body)
                 .build();
         httpClient.newCall(request)
