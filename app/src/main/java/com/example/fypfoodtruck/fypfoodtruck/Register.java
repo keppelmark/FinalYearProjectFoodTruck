@@ -52,95 +52,75 @@ public class Register extends AppCompatActivity {
         isBusinessBox = findViewById(R.id.isBusiness);
         isCustomerBox = findViewById(R.id.isCustomer);
 
-        isCustomerBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(compoundButton.isChecked()) {
-                    isBusinessBox.setChecked(false);
-                }
-
+        isCustomerBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if(compoundButton.isChecked()) {
+                isBusinessBox.setChecked(false);
             }
+
         });
 
-        isBusinessBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(compoundButton.isChecked()) {
-                    isCustomerBox.setChecked(false);
-                }
-
+        isBusinessBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if(compoundButton.isChecked()) {
+                isCustomerBox.setChecked(false);
             }
+
         });
 
 
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkField(fullName);
-                checkField(email);
-                checkField(password);
-                checkField(phone);
+        registerBtn.setOnClickListener(v -> {
+            checkField(fullName);
+            checkField(email);
+            checkField(password);
+            checkField(phone);
 
-                if(!(isBusinessBox.isChecked() || isCustomerBox.isChecked())){
-                    Toast.makeText(Register.this, "Select the Account Type", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            if(!(isBusinessBox.isChecked() || isCustomerBox.isChecked())){
+                Toast.makeText(Register.this, "Select the Account Type", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                if(valid){
-                    fAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-                            FirebaseUser user = fAuth.getCurrentUser();
-                            String userId = user.getUid();
-                            Toast.makeText(Register.this, "Account Created", Toast.LENGTH_SHORT).show();
-                            DocumentReference df = fStore.collection("Users").document(user.getUid());
-                            Map<String, Object> userInfo = new HashMap<>();
-                            userInfo.put("FullName", fullName.getText().toString());
-                            userInfo.put("UserEmail", email.getText().toString());
-                            userInfo.put("PhoneNumber", phone.getText().toString());
+            if(valid){
+                fAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser user = fAuth.getCurrentUser();
+                        String userId = user.getUid();
+                        Toast.makeText(Register.this, "Account Created", Toast.LENGTH_SHORT).show();
+                        DocumentReference df = fStore.collection("Users").document(user.getUid());
+                        Map<String, Object> userInfo = new HashMap<>();
+                        userInfo.put("FullName", fullName.getText().toString());
+                        userInfo.put("UserEmail", email.getText().toString());
+                        userInfo.put("PhoneNumber", phone.getText().toString());
 
 
-                            if (isBusinessBox.isChecked()) {
-                                userInfo.put("isBusiness", "1");
-                            }
-                            if (isCustomerBox.isChecked()) {
-                                userInfo.put("isCustomer", "1");
-                            }
-
-
-                            df.set(userInfo);
-
-                            if (isBusinessBox.isChecked()) {
-                                startActivity(new Intent(getApplicationContext(), Admin.class));
-                                finish();
-                            }
-
-                            if (isCustomerBox.isChecked()) {
-                                startActivity(new Intent(getApplicationContext(), Login.class));
-                                finish();
-                            }
+                        if (isBusinessBox.isChecked()) {
+                            userInfo.put("isBusiness", "1");
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Register.this, "Failed to Create Account", Toast.LENGTH_SHORT).show();
+                        if (isCustomerBox.isChecked()) {
+                            userInfo.put("isCustomer", "1");
                         }
-                    });
 
-                }
 
+                        df.set(userInfo);
+
+                        if (isBusinessBox.isChecked()) {
+                            startActivity(new Intent(getApplicationContext(), Admin.class));
+                            finish();
+                        }
+
+                        if (isCustomerBox.isChecked()) {
+                            startActivity(new Intent(getApplicationContext(), Login.class));
+                            finish();
+                        }
+                    }
+                }).addOnFailureListener(e -> Toast.makeText(Register.this, "Failed to Create Account", Toast.LENGTH_SHORT).show());
 
             }
+
+
         });
 
-        goToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Login.class));
-
-            }
-        });
+        goToLogin.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),Login.class)));
     }
 
 

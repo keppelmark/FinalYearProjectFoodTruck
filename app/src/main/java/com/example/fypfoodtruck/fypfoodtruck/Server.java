@@ -1,4 +1,4 @@
-package com.example.fypfoodtruck.fypfoodtruck;
+/*package com.example.fypfoodtruck.fypfoodtruck;
 
 
 import android.os.Build;
@@ -52,7 +52,7 @@ public class Server {
         staticFiles.externalLocation(Paths.get("").toAbsolutePath().toString());
 
         // This is your real test secret API key.
-        Stripe.apiKey = "sk_test_51IORFrJiK3A99fR1njZrcCo9sxiRXHm5JgYwkG7NegRJuJ35QGRaEu2KwR5sHlM0bBIhNVDS74Cr64By47DXxatr00XWvcXi1O";
+        Stripe.apiKey = "sk_test_51IZFIFC6lzTGuBCjvraUZVOgzi9Jb4pbol5bZl8PiP6UCG8IBImr9ylDqHLTPkzMXu7NAY2MZzdlgxKyBeBCYCGW003SaWl8JT";
 
         post("/create-payment-intent", (request, response) -> {
             response.type("application/json");
@@ -69,7 +69,7 @@ public class Server {
             return gson.toJson(paymentResponse);
         });
     }
-}
+}*/
 
 
 
