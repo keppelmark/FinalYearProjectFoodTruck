@@ -98,44 +98,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
                 cartModels.add(cartModel);
 
-//
-                // from these lines of code we update badge count value
-       /*         MenuDetailActivity.cart_count = 0;
-                for (int i1 = 0; i1 < cartModels.size(); i1++) {
-                    for (int j = i1 + 1; j < cartModels.size(); j++)
-                        if (cartModels.get(i1).getProductImage().equals(cartModels.get(j).getProductImage())) {
-                            cartModels.get(i1).setProductQuantity(cartModels.get(j).getProductQuantity());
-                            cartModels.get(i1).setTotalCash(cartModels.get(j).getTotalCash());
-                            //          cartModels.get(i).setImageIdSlide(cartModels.get(j).getImageIdSlide());
-                            cartModels.remove(j);
-                            j--;
-                            Log.d("remove", String.valueOf(cartModels.size()));
-
-                        }
-                }
-                MenuDetailActivity.cart_count = cartModels.size();
-
-                // from this interface method calling we show the updated value of cart cout in badge
-                homeCallBack.updateCartCount(context);
-                dialog.dismiss();
-            });
-
-            closeDialog.setOnClickListener(v13 -> {
-                MenuDetailActivity.cart_count = 0;
-                for (int i1 = 0; i1 < cartModels.size(); i1++) {
-                    for (int j = i1 + 1; j < cartModels.size(); j++) {
-                        if (cartModels.get(i1).getProductImage().equals(cartModels.get(j).getProductImage())) {
-                            cartModels.get(i1).setProductQuantity(cartModels.get(j).getProductQuantity());
-                            cartModels.get(i1).setTotalCash(cartModels.get(j).getTotalCash());
-                            //          cartModels.get(i).setImageIdSlide(cartModels.get(j).getImageIdSlide());
-                            cartModels.remove(j);
-                            j--;
-                            Log.d("remove", String.valueOf(cartModels.size()));
-
-                        }
-                    }
-                }*/
-
 
                 MenuDetailActivity.cart_count = cartModels.size();
                 homeCallBack.updateCartCount(context);

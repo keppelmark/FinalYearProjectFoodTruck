@@ -1,12 +1,12 @@
 /**
  * Copyright 2017 Google Inc. All Rights Reserved.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-/*import com.example.fypfoodtruck.fypfoodtruck.Restaurant;*/
 
 /**
  * Dialog Fragment containing filter form.
@@ -43,7 +42,7 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
 
     private View mRootView;
 
-    /*private Spinner mNameSpinner;*/
+
     private Spinner mCategorySpinner;
     private Spinner mCountySpinner;
 
@@ -57,7 +56,6 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
                              @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.dialog_filters, container, false);
 
-//        mNameSpinner = mRootView.findViewById(R.id.spinner_name);
         mCategorySpinner = mRootView.findViewById(R.id.spinner_category);
         mCountySpinner = mRootView.findViewById(R.id.spinner_county);
 
@@ -130,38 +128,8 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
     }
 
 
-
- /*   @Nullable
-    private String getSelectedSortBy() {
-        String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_by_rating).equals(selected)) {
-            return Restaurant.FIELD_AVG_RATING;
-        } if (getString(R.string.sort_by_price).equals(selected)) {
-            return Restaurant.FIELD_PRICE;
-        } if (getString(R.string.sort_by_popularity).equals(selected)) {
-            return Restaurant.FIELD_POPULARITY;
-        }
-
-        return null;
-    }
-
-    @Nullable
-    private Query.Direction getSortDirection() {
-        String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_by_rating).equals(selected)) {
-            return Query.Direction.DESCENDING;
-        } if (getString(R.string.sort_by_price).equals(selected)) {
-            return Query.Direction.ASCENDING;
-        } if (getString(R.string.sort_by_popularity).equals(selected)) {
-            return Query.Direction.DESCENDING;
-        }
-
-        return null;
-    }*/
-
     public void resetFilters() {
         if (mRootView != null) {
-            /*mNameSpinner.setSelection(0);*/
             mCategorySpinner.setSelection(0);
             mCountySpinner.setSelection(0);
 
@@ -175,8 +143,6 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
             filters.setCategory(getSelectedCategory());
             filters.setCounty(getSelectedCounty());
 
-
-            /*filters.setSortDirection(getSortDirection());*/
         }
 
         return filters;

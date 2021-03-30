@@ -105,12 +105,9 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
 
 
             // Click listener
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (listener != null) {
-                        listener.onRestaurantSelected(snapshot);
-                    }
+            itemView.setOnClickListener(view -> {
+                if (listener != null) {
+                    listener.onRestaurantSelected(snapshot);
                 }
             });
         }

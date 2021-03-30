@@ -117,18 +117,11 @@ public class MainActivity extends AppCompatActivity implements
         mRestaurantsRecycler.setAdapter(mAdapter);
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
 
-        // Start sign in if necessary
-      /*  if (shouldStartSignIn()) {
-            startSignIn();
-            return;
-        }*/
-
-        // Apply filters
-        /*onFilter(mViewModel.getFilters());*/
 
         // Start listening for Firestore updates
         if (mAdapter != null) {
@@ -144,20 +137,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-
-
-  /*   private void onAddItemsClicked() {
-        // Get a reference to the restaurants collection
-        CollectionReference restaurants = mFirestore.collection("Restaurants");
-
-        for (int i = 0; i < 10; i++) {
-            // Get a random Restaurant POJO
-            Restaurant restaurant = RestaurantUtil.getRandom(this);
-
-            // Add a new document to the restaurants collection
-            restaurants.add(restaurant);
-        }
-    }*/
 
     @Override
     public void onFilter(Filters filters) {
@@ -195,43 +174,9 @@ public class MainActivity extends AppCompatActivity implements
         mCurrentSearchView.setText(Html.fromHtml(filters.getSearchDescription(this)));
         mCurrentSortByView.setText(filters.getOrderDescription(this));
 
-        /*// Save filters
-        mViewModel.setFilters(filters);*/
+
     }
 
-
-
- /*   @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }*/
-
-/*    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_add_items:
-                onAddItemsClicked();
-                break;
-            case R.id.menu_sign_out:
-                AuthUI.getInstance().signOut(this);
-                startSignIn();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            mViewModel.setIsSigningIn(false);
-
-            if (resultCode != RESULT_OK && shouldStartSignIn()) {
-                startSignIn();
-            }
-        }
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -264,21 +209,6 @@ public class MainActivity extends AppCompatActivity implements
         startActivity(intent);
     }
 
-/*    private boolean shouldStartSignIn() {
-        return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null);
-    }
-
-    private void startSignIn() {
-        // Sign in with FirebaseUI
-        Intent intent = AuthUI.getInstance().createSignInIntentBuilder()
-                .setAvailableProviders(Collections.singletonList(
-                        new AuthUI.IdpConfig.EmailBuilder().build()))
-                .setIsSmartLockEnabled(false)
-                .build();
-
-        startActivityForResult(intent, RC_SIGN_IN);
-        mViewModel.setIsSigningIn(true);
-    }*/
 
     private void showTodoToast() {
         Toast.makeText(this, "TODO: Implement", Toast.LENGTH_SHORT).show();
