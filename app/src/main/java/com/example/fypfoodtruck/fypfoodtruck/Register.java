@@ -105,7 +105,7 @@ public class Register extends AppCompatActivity {
                         }
 
                         if (isCustomerBox.isChecked()) {
-                            startActivity(new Intent(getApplicationContext(), Login.class));
+                            startActivity(new Intent(getApplicationContext(), Consumer.class));
                             finish();
                         }
                     }

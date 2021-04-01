@@ -26,6 +26,7 @@
         </activity>
         <activity android:name=".Register" />
         <activity android:name=".Admin" />
+        <activity android:name=".Consumer" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".MenuDetailActivity"
