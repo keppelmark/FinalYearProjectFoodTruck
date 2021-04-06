@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +24,8 @@ import java.util.Objects;
 import static com.example.fypfoodtruck.fypfoodtruck.ProductAdapter.cartModels;
 
 
-
 public class CartActivity extends AppCompatActivity {
+    public static final String EXTRA_NUMBER = "com.example.fypfoodtruck.fypfoodtruck.EXTRA_NUMBER";
 
     @SuppressLint("StaticFieldLeak")
     public static TextView grandTotal;
@@ -62,7 +63,6 @@ public class CartActivity extends AppCompatActivity {
             }
             cartModels.addAll(temparraylist);
             MenuDetailActivity.cart_count = (temparraylist.size());
-//                addItemInCart.clear();
             finish();
         });
         MenuDetailActivity.cart_count = 0;
@@ -88,11 +88,18 @@ public class CartActivity extends AppCompatActivity {
         cartRecyclerView.setLayoutManager(mLayoutManager);
         cartRecyclerView.setAdapter(cartAdapter);
 
-
-        proceedToBook.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), CheckoutActivity.class)));
-
-
+        proceedToBook.setOnClickListener(v -> openCheckoutActivity());
     }
+
+    public void openCheckoutActivity() {
+
+        TextView textView = (TextView) findViewById(R.id.grand_total_cart);
+        int number = Integer.parseInt(textView.getText().toString());
+        Intent intent = new Intent(this, CheckoutActivity.class);
+        intent.putExtra(EXTRA_NUMBER, number);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onBackPressed() {

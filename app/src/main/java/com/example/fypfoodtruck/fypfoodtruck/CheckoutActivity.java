@@ -72,7 +72,11 @@ public class CheckoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        Intent intent = getIntent();
+        int number = intent.getIntExtra(CartActivity.EXTRA_NUMBER, 0);
         amountText = findViewById(R.id.amount_id);
+        amountText.setText("" + number);
+        amountText.setEnabled(false);
         cardInputWidget = findViewById(R.id.cardInputWidget);
         payButton = findViewById(R.id.payButton);
         progressDialog = new ProgressDialog(this);
