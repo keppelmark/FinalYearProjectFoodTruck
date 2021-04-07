@@ -41,7 +41,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.durationView.setText(item.getDuration());
 
 
-
     }
 
 
@@ -66,14 +65,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             durationView = itemView.findViewById(R.id.list_duration);
 
         }
-/*
-        public void bind(Item product) {
-            productView.setText(product.getProduct());
-            priceView.setText(product.getPrice());
-            descriptionView.setText(product.getDescription());
-            durationView.setText(product.getDuration());
 
-        }*/
     }
 
 }

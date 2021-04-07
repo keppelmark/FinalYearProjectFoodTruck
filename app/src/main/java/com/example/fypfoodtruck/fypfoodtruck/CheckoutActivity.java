@@ -95,7 +95,6 @@ public class CheckoutActivity extends AppCompatActivity {
             CartActivity.grandTotalplus = amountTotal;
             //get Amount
             amountDouble = Double.valueOf(amountText.getText().toString());
-            /*amountDouble = (double) amountTotal;*/
             //call checkout to get paymentIntentClientSecret key
             progressDialog.show();
             startCheckout();
@@ -106,12 +105,7 @@ public class CheckoutActivity extends AppCompatActivity {
         {
             // Create a PaymentIntent by calling the server's endpoint.
             MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-//        String json = "{"
-//                + "\"currency\":\"usd\","
-//                + "\"items\":["
-//                + "{\"id\":\"photo_subscription\"}"
-//                + "]"
-//                + "}";
+
             double amount=amountDouble*100;
             Map<String,Object> payMap=new HashMap<>();
             Map<String,Object> itemMap=new HashMap<>();

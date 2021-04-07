@@ -47,9 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final ProductAdapter.ViewHolder viewHolder, final int i) {
-        /*viewHolder.productImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bag));*/
         viewHolder.productName.setText(productsArray.get(i).getProduct());
-        /*viewHolder.productImage.setImageDrawable(ContextCompat.getDrawable(context, productsArray.get(i).imagePath));*/
 
         viewHolder.productImage.setOnClickListener(v -> {
             final Dialog dialog = new Dialog(context);
@@ -64,7 +62,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             TextView viewCartDialog = dialog.findViewById(R.id.view_cart_button_dialog);
             final TextView quantity = dialog.findViewById(R.id.cart_product_quantity_tv);
             quantity.setText(String.valueOf(0));
-            final int[] cartCounter = {0};//{(arrayListImage.get(position).getStocks())};
+            final int[] cartCounter = {0};
             cartDecrement.setEnabled(false);
             cartDecrement.setOnClickListener(v15 -> {
                 if (cartCounter[0] == 1) {

@@ -49,7 +49,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(final CartAdapter.ViewHolder holder, final int position) {
-        // holder.productCartImage.setImageResource(R.drawable.burger);
         holder.productCartPrice.setText(String.valueOf(cartModelArrayList.get(position).getTotalCash()));
         holder.productCartCode.setText(cartModelArrayList.get(position).getProductName());
         holder.productCartQuantity.setText(String.valueOf(cartModelArrayList.get(position).getProductQuantity()));

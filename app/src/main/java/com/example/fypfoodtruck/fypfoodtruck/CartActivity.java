@@ -93,7 +93,7 @@ public class CartActivity extends AppCompatActivity {
 
     public void openCheckoutActivity() {
 
-        TextView textView = (TextView) findViewById(R.id.grand_total_cart);
+        TextView textView = findViewById(R.id.grand_total_cart);
         int number = Integer.parseInt(textView.getText().toString());
         Intent intent = new Intent(this, CheckoutActivity.class);
         intent.putExtra(EXTRA_NUMBER, number);
@@ -110,7 +110,7 @@ public class CartActivity extends AppCompatActivity {
 
         }
         cartModels.addAll(temparraylist);
-        //cartModels.clear();
+
     }
 
 

@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements
     private FilterDialogFragment mFilterDialog;
     private RestaurantAdapter mAdapter;
 
-    /*private MainActivityViewModel mViewModel;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements
         findViewById(R.id.filter_bar).setOnClickListener(this);
         findViewById(R.id.button_clear_filter).setOnClickListener(this);
 
-        /*// View model
-        mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);*/
 
         // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true);
@@ -82,8 +79,7 @@ public class MainActivity extends AppCompatActivity implements
     private void initFirestore() {
         mFirestore = FirebaseFirestore.getInstance();
         mQuery = mFirestore.collection("Businesses");
-        /*.orderBy("name", Query.Direction.DESCENDING)*/
-        /*.limit(LIMIT);*/
+
     }
 
     private void initRecyclerView() {
@@ -105,12 +101,6 @@ public class MainActivity extends AppCompatActivity implements
                 }
             }
 
-        /*    @Override
-            protected void onError(FirebaseFirestoreException e) {
-                // Show a snackbar on errors
-                Snackbar.make(findViewById(android.R.id.content),
-                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show();
-            }*/
         };
 
         mRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this));

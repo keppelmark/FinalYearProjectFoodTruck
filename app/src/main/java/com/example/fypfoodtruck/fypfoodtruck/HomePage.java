@@ -57,7 +57,7 @@ public class HomePage extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                            /*Log.d(TAG, document.getId() + " => " + document.getData());*/
+
                             Business business = document.toObject(Business.class);
 
                             if (Objects.equals(business.getUserId(), userId)) {
@@ -66,24 +66,7 @@ public class HomePage extends AppCompatActivity {
                                 businessId = document.getId();
                                 addProduct();
 
-                              /*  // Get menu items
-                                Query menuQuery = businessRef.document(businessId)
-                                        .collection("Menus");
 
-
-                                // RecyclerView
-                                adapter = new MenuAdapter(menuQuery) {
-                                    @Override
-                                    protected void onDataChanged() {
-                                        if (getItemCount() == 0) {
-                                            menuRecycler.setVisibility(View.GONE);
-
-                                        } else {
-                                            menuRecycler.setVisibility(View.VISIBLE);
-
-                                        }
-                                    }
-                                };*/
                                 adapter = new MenuAdapter(arrayList);
                                 menuRecycler.setLayoutManager(new LinearLayoutManager(this));
                                 menuRecycler.setAdapter(adapter);
