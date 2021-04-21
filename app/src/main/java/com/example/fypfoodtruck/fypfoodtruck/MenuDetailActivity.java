@@ -48,7 +48,6 @@ public class MenuDetailActivity extends AppCompatActivity implements ProductAdap
         addProduct();
 
 
-
         productAdapter = new ProductAdapter(arrayList, this, this);
         productRecyclerView = findViewById(R.id.product_recycler_view);
 
@@ -56,7 +55,6 @@ public class MenuDetailActivity extends AppCompatActivity implements ProductAdap
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, false);
         productRecyclerView.setLayoutManager(gridLayoutManager);
         productRecyclerView.setAdapter(productAdapter);
-
 
 
     }
@@ -74,17 +72,15 @@ public class MenuDetailActivity extends AppCompatActivity implements ProductAdap
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Log.d("fb", document.getId() + " => " + document.getData());
                             try {
-
+                                String documentId = document.getId();
                                 String product = document.getString("product");
                                 String price = document.getString("price");
                                 String description = document.getString("description");
                                 String duration = document.getString("duration");
 
 
-                                arrayList.add(new Item(product, price, description, duration));
-                                productAdapter.notifyItemInserted(arrayList.size()-1);
-
-
+                                arrayList.add(new Item(documentId, product, price, description, duration));
+                                productAdapter.notifyItemInserted(arrayList.size() - 1);
 
 
                             } catch (Exception e) {
@@ -129,7 +125,10 @@ public class MenuDetailActivity extends AppCompatActivity implements ProductAdap
             if (cart_count < 1) {
                 Toast.makeText(this, "there is no item in cart", Toast.LENGTH_SHORT).show();
             } else {
-                startActivity(new Intent(this, CartActivity.class));
+
+                Intent i = new Intent(MenuDetailActivity.this, CartActivity.class);
+                i.putExtra("businessId", restaurantId);
+                startActivity(i);
             }
         } else {
             return super.onOptionsItemSelected(item);

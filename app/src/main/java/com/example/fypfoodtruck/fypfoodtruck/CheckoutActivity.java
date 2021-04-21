@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +17,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1.WriteResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -33,7 +41,9 @@ import com.stripe.android.view.CardMultilineWidget;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,22 +67,29 @@ public class CheckoutActivity extends AppCompatActivity {
     TextView amountText;
     CardMultilineWidget cardInputWidget;
     Button payButton;
+    FirebaseAuth fAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference orderRef = db.collection("Orders");
+    private String orderId;
 
     // we need paymentIntentClientSecret to start transaction
     private String paymentIntentClientSecret;
     //declare stripe
     private Stripe stripe;
 
-    Double amountDouble=null;
+    Double amountDouble = null;
 
     private OkHttpClient httpClient;
 
     static ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
         Intent intent = getIntent();
+        orderId = intent.getStringExtra(CartActivity.EXTRA_ORDERID);
+        Toast.makeText(CheckoutActivity.this, orderId, Toast.LENGTH_SHORT).show();
         int number = intent.getIntExtra(CartActivity.EXTRA_NUMBER, 0);
         amountText = findViewById(R.id.amount_id);
         amountText.setText("" + number);
@@ -83,6 +100,7 @@ public class CheckoutActivity extends AppCompatActivity {
         progressDialog.setTitle("Transaction in progress");
         progressDialog.setCancelable(false);
         httpClient = new OkHttpClient();
+        fAuth = FirebaseAuth.getInstance();
 
         //Initialize
         stripe = new Stripe(
@@ -106,15 +124,15 @@ public class CheckoutActivity extends AppCompatActivity {
             // Create a PaymentIntent by calling the server's endpoint.
             MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 
-            double amount=amountDouble*100;
-            Map<String,Object> payMap=new HashMap<>();
-            Map<String,Object> itemMap=new HashMap<>();
-            List<Map<String,Object>> itemList =new ArrayList<>();
-            payMap.put("currency","EUR");
-            itemMap.put("id","photo_subscription");
-            itemMap.put("amount",amount);
+            double amount = amountDouble * 100;
+            Map<String, Object> payMap = new HashMap<>();
+            Map<String, Object> itemMap = new HashMap<>();
+            List<Map<String, Object>> itemList = new ArrayList<>();
+            payMap.put("currency", "EUR");
+            itemMap.put("id", "photo_subscription");
+            itemMap.put("amount", amount);
             itemList.add(itemMap);
-            payMap.put("items",itemList);
+            payMap.put("items", itemList);
             String json = new Gson().toJson(payMap);
             RequestBody body = RequestBody.create(json, mediaType);
             Request request = new Request.Builder()
@@ -130,9 +148,11 @@ public class CheckoutActivity extends AppCompatActivity {
     private static final class PayCallback implements Callback {
         @NonNull
         private final WeakReference<CheckoutActivity> activityRef;
+
         PayCallback(@NonNull CheckoutActivity activity) {
             activityRef = new WeakReference<>(activity);
         }
+
         @Override
         public void onFailure(@NonNull Call call, @NonNull IOException e) {
             progressDialog.dismiss();
@@ -146,6 +166,7 @@ public class CheckoutActivity extends AppCompatActivity {
                     ).show()
             );
         }
+
         @Override
         public void onResponse(@NonNull Call call, @NonNull final Response response)
                 throws IOException {
@@ -167,7 +188,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private void onPaymentSuccess(@NonNull final Response response) throws IOException {
         Gson gson = new Gson();
-        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
         Map<String, String> responseMap = gson.fromJson(
                 Objects.requireNonNull(response.body()).string(),
                 type
@@ -184,7 +206,7 @@ public class CheckoutActivity extends AppCompatActivity {
             //start payment
             stripe.confirmPayment(CheckoutActivity.this, confirmParams);
         }
-        Log.i("TAG", "onPaymentSuccess: "+paymentIntentClientSecret);
+        Log.i("TAG", "onPaymentSuccess: " + paymentIntentClientSecret);
     }
 
     @Override
@@ -197,10 +219,13 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private final class PaymentResultCallback
             implements ApiResultCallback<PaymentIntentResult> {
-        @NonNull private final WeakReference<CheckoutActivity> activityRef;
+        @NonNull
+        private final WeakReference<CheckoutActivity> activityRef;
+
         PaymentResultCallback(@NonNull CheckoutActivity activity) {
             activityRef = new WeakReference<>(activity);
         }
+
         //If Payment is successful
         @Override
         public void onSuccess(@NonNull PaymentIntentResult result) {
@@ -213,8 +238,9 @@ public class CheckoutActivity extends AppCompatActivity {
             PaymentIntent.Status status = paymentIntent.getStatus();
             if (status == PaymentIntent.Status.Succeeded) {
                 // Payment completed successfully
+                updateOrder();
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Toast toast =Toast.makeText(activity, "Ordered Successful", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(activity, "Ordered Successful", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
@@ -225,6 +251,31 @@ public class CheckoutActivity extends AppCompatActivity {
                 );
             }
         }
+
+        private void updateOrder() {
+            // change status from pending to successful
+            // find order with orderId and update order status to 2 (paid)
+            DocumentReference docRef = FirebaseFirestore.getInstance()
+                    .collection("Orders")
+                    .document(orderId);
+            Map<String, Object> map = new HashMap<>();
+            map.put("status", 2);
+
+            docRef.update(map)
+                    .addOnSuccessListener(aVoid -> {
+                        String TAG = null;
+                        Log.d(TAG, "onSuccess: updated ");
+
+                    })
+                    .addOnFailureListener(e -> {
+                        String TAG = null;
+                        Log.e(TAG, "onFailure: ", e);
+
+                    });
+
+
+        }
+
         //If Payment is not successful
         @Override
         public void onError(@NonNull Exception e) {
@@ -237,6 +288,7 @@ public class CheckoutActivity extends AppCompatActivity {
             activity.displayAlert("Error", e.toString());
         }
     }
+
     private void displayAlert(@NonNull String title,
                               @Nullable String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)

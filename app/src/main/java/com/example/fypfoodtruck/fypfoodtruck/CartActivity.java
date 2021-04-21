@@ -18,14 +18,28 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 import static com.example.fypfoodtruck.fypfoodtruck.ProductAdapter.cartModels;
+import static com.example.fypfoodtruck.fypfoodtruck.ProductAdapter.productsArray;
 
 
 public class CartActivity extends AppCompatActivity {
     public static final String EXTRA_NUMBER = "com.example.fypfoodtruck.fypfoodtruck.EXTRA_NUMBER";
+    public static final String EXTRA_ORDERID = "com.example.fypfoodtruck.fypfoodtruck.EXTRA_ORDERID";
 
     @SuppressLint("StaticFieldLeak")
     public static TextView grandTotal;
@@ -36,6 +50,14 @@ public class CartActivity extends AppCompatActivity {
     CartAdapter cartAdapter;
     LinearLayout proceedToBook;
     Context context;
+    private String businessId;
+    private String customerId;
+    FirebaseAuth fAuth;
+
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference orderRef = db.collection("Orders");
+
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -43,6 +65,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        fAuth = FirebaseAuth.getInstance();
         context = this;
         temparraylist = new ArrayList<>();
         Toolbar mToolbar = findViewById(R.id.toolbar);
@@ -67,7 +90,6 @@ public class CartActivity extends AppCompatActivity {
         });
         MenuDetailActivity.cart_count = 0;
 
-        //addInCart();
 
         Log.d("sizecart_1", String.valueOf(temparraylist.size()));
         Log.d("sizecart_2", String.valueOf(cartModels.size()));
@@ -77,7 +99,7 @@ public class CartActivity extends AppCompatActivity {
         cartModels.clear();
         Log.d("sizecart_11", String.valueOf(temparraylist.size()));
         Log.d("sizecart_22", String.valueOf(cartModels.size()));
-        // this code is for get total cash
+
         for (int i = 0; i < temparraylist.size(); i++) {
             grandTotalplus = grandTotalplus + temparraylist.get(i).getTotalCash();
         }
@@ -93,11 +115,39 @@ public class CartActivity extends AppCompatActivity {
 
     public void openCheckoutActivity() {
 
-        TextView textView = findViewById(R.id.grand_total_cart);
-        int number = Integer.parseInt(textView.getText().toString());
-        Intent intent = new Intent(this, CheckoutActivity.class);
-        intent.putExtra(EXTRA_NUMBER, number);
-        startActivity(intent);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+
+        Order order = new Order(customerId, businessId, date.toString(), 1);
+
+        orderRef.add(order).addOnSuccessListener(documentReference -> {
+            TextView itemView = findViewById(R.id.product_cart_code);
+            String itemId = itemView.getText().toString();
+            TextView quantityView = findViewById(R.id.cart_product_quantity_tv);
+            int quantity = Integer.parseInt(quantityView.getText().toString());
+            Toast.makeText(CartActivity.this, itemId, Toast.LENGTH_SHORT).show();
+
+
+            OrderItem orderItem = new OrderItem(itemId, quantity);
+
+
+            DocumentReference docRef = orderRef.document(documentReference.getId());
+            docRef.collection("OrderItems").add(orderItem);
+
+
+            TextView textView = findViewById(R.id.grand_total_cart);
+            String orderId = docRef.getId();
+            int number = Integer.parseInt(textView.getText().toString());
+            Intent intent = new Intent(this, CheckoutActivity.class);
+            intent.putExtra(EXTRA_NUMBER, number);
+            intent.putExtra(EXTRA_ORDERID, orderId);
+
+            startActivity(intent);
+
+
+        });
+
+
     }
 
 
@@ -113,5 +163,26 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = fAuth.getCurrentUser();
+        assert user != null;
 
+        // query customerId
+        customerId = fAuth.getCurrentUser().getUid();
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            businessId = extras.getString("businessId");
+        }
+
+
+    }
 }
+
+
+
+
+

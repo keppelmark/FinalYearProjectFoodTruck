@@ -16,6 +16,13 @@ public class Item {
         //public no-arg constructor needed
     }
 
+    public Item(String documentId, String product, String price, String description, String duration) {
+        this.documentId = documentId;
+        this.product = product;
+        this.price = price;
+        this.description = description;
+        this.duration = duration;
+    }
     public Item(String product, String price, String description, String duration) {
         this.product = product;
         this.price = price;

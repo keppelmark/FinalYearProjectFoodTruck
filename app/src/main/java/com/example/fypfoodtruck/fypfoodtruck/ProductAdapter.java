@@ -48,6 +48,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ProductAdapter.ViewHolder viewHolder, final int i) {
         viewHolder.productName.setText(productsArray.get(i).getProduct());
+        viewHolder.productId.setText(productsArray.get(i).getDocumentId());
 
         viewHolder.productImage.setOnClickListener(v -> {
             final Dialog dialog = new Dialog(context);
@@ -90,6 +91,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 cartModel = new ProductImage();
                 cartModel.setProductQuantity((cartCounter[0]));
                 cartModel.setProductPrice(arrayList.get(i).getPrice());
+                cartModel.setProductCode(arrayList.get(i).getDocumentId());
                 cartModel.setTotalCash(cartCounter[0] *
                         Integer.parseInt(arrayList.get(i).getPrice()));
                 Log.d("pos", String.valueOf(i));
@@ -101,7 +103,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 homeCallBack.updateCartCount(context);
                 dialog.dismiss();
             });
-
 
         });
 
@@ -117,7 +118,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         void addCartItemView();
     }
 
-    // this interface creates for call the invalidateoptionmenu() for refresh the menu item
     public interface HomeCallBack {
         void updateCartCount(Context context);
     }
@@ -125,11 +125,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productName;
+        TextView productId;
 
         ViewHolder(View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.android_gridview_image);
             productName = itemView.findViewById(R.id.android_gridview_text);
+            productId = itemView.findViewById(R.id.android_itemId);
         }
     }
 }

@@ -50,7 +50,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final CartAdapter.ViewHolder holder, final int position) {
         holder.productCartPrice.setText(String.valueOf(cartModelArrayList.get(position).getTotalCash()));
-        holder.productCartCode.setText(cartModelArrayList.get(position).getProductName());
+        holder.productCartCode.setText(cartModelArrayList.get(position).getProductCode());
         holder.productCartQuantity.setText(String.valueOf(cartModelArrayList.get(position).getProductQuantity()));
 
         RequestOptions requestOptions = new RequestOptions();
@@ -62,33 +62,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 .load(cartModelArrayList.get(position).getProductImage()).into(holder.productCartImage);
 
         //for remove single item in cart and update the total value and list
-        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.deleteItem.setOnClickListener(v -> {
 
-                if (cartModelArrayList.size() == 1) {
-                    cartModelArrayList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, cartModelArrayList.size());
-                    grandTotalplus = 0;
-                    grandTotal.setText(String.valueOf(grandTotalplus));
+            if (cartModelArrayList.size() == 1) {
+                cartModelArrayList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, cartModelArrayList.size());
+                grandTotalplus = 0;
+                grandTotal.setText(String.valueOf(grandTotalplus));
+            }
+
+            if (cartModelArrayList.size() > 0) {
+                cartModelArrayList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, cartModelArrayList.size());
+                grandTotalplus = 0;
+                for (int i = 0; i < temparraylist.size(); i++) {
+                    grandTotalplus = grandTotalplus + temparraylist.get(i).getTotalCash();
                 }
 
-                if (cartModelArrayList.size() > 0) {
-                    cartModelArrayList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, cartModelArrayList.size());
-                    grandTotalplus = 0;
-                    for (int i = 0; i < temparraylist.size(); i++) {
-                        grandTotalplus = grandTotalplus + temparraylist.get(i).getTotalCash();
-                    }
+                Log.d("totalcashthegun", String.valueOf(grandTotalplus));
+                grandTotal.setText(String.valueOf(grandTotalplus));
 
-                    Log.d("totalcashthegun", String.valueOf(grandTotalplus));
-                    grandTotal.setText(String.valueOf(grandTotalplus));
-
-                } else {
-                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-                }
+            } else {
+                Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             }
         });
         //
@@ -109,6 +106,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             int cash = (Integer.parseInt(cartModelArrayList.get(position).getProductPrice()) * (cartModelArrayList.get(position).getProductQuantity()));
 
             holder.productCartQuantity.setText(String.valueOf(cartModelArrayList.get(position).getProductQuantity()));
+            holder.productCartCode.setText(cartModelArrayList.get(position).getProductCode());
 
             cartModelArrayList.get(position).setTotalCash(cash);
             holder.productCartPrice.setText(String.valueOf(cash));

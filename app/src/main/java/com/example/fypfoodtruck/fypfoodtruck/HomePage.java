@@ -46,7 +46,6 @@ public class HomePage extends AppCompatActivity {
         checkBusiness();
 
 
-
     }
 
     private void checkBusiness() {
@@ -93,13 +92,14 @@ public class HomePage extends AppCompatActivity {
                             Log.d("fb", document.getId() + " => " + document.getData());
                             try {
 
+                                String documentId = document.getString("documentId");
                                 String product = document.getString("product");
                                 String price = document.getString("price");
                                 String description = document.getString("description");
                                 String duration = document.getString("duration");
 
 
-                                arrayList.add(new Item(product, price, description, duration));
+                                arrayList.add(new Item(documentId, product, price, description, duration));
                                 adapter.notifyItemInserted(arrayList.size() - 1);
 
 
@@ -138,7 +138,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void ViewOrders(MenuItem item) {
-        /*startActivity(new Intent(getApplicationContext(), Server.class));*/
+        /*startActivity(new Intent(getApplicationContext(), Orders.class));*/
     }
 
 
