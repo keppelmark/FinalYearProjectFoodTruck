@@ -124,19 +124,19 @@ public class CartActivity extends AppCompatActivity {
             TextView itemView = findViewById(R.id.product_cart_code);
             String itemId = itemView.getText().toString();
             TextView quantityView = findViewById(R.id.cart_product_quantity_tv);
-            int quantity = Integer.parseInt(quantityView.getText().toString());
+            String quantity = quantityView.getText().toString();
             Toast.makeText(CartActivity.this, itemId, Toast.LENGTH_SHORT).show();
-
-
-            OrderItem orderItem = new OrderItem(itemId, quantity);
-
-
             DocumentReference docRef = orderRef.document(documentReference.getId());
+
+            String orderId = docRef.getId();
+            OrderItem orderItem = new OrderItem(orderId, itemId, quantity);
+
+
             docRef.collection("OrderItems").add(orderItem);
 
 
             TextView textView = findViewById(R.id.grand_total_cart);
-            String orderId = docRef.getId();
+
             int number = Integer.parseInt(textView.getText().toString());
             Intent intent = new Intent(this, CheckoutActivity.class);
             intent.putExtra(EXTRA_NUMBER, number);

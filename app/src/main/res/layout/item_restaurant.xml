@@ -7,13 +7,6 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/restaurant_item_image"-->
-    <!--        android:layout_width="60dp"-->
-    <!--        android:layout_height="60dp"-->
-    <!--        android:background="#757575"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        android:src="@drawable/food_1" />-->
 
     <TextView
         android:id="@+id/restaurant_item_name"
@@ -28,23 +21,6 @@
         tools:text="Mario's" />
 
 
-    <!--android:layout_alignTop="@+id/restaurant_item_image"-->
-    android:layout_marginBottom="4dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginTop="-2dp"
-    android:layout_toLeftOf="@+id/restaurant_item_price"
-    <!--android:layout_toRightOf="@+id/restaurant_item_image"-->
-
-
-    <!--    <me.zhanghai.android.materialratingbar.MaterialRatingBar-->
-    <!--        android:id="@+id/restaurant_item_rating"-->
-    <!--        style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignLeft="@+id/restaurant_item_name"-->
-    <!--        android:layout_below="@+id/restaurant_item_name"-->
-    <!--        android:layout_marginBottom="4dp"-->
-    <!--        tools:ignore="MissingClass" />-->
 
     <TextView
         android:id="@+id/restaurant_item_category"

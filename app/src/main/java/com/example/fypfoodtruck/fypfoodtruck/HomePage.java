@@ -24,6 +24,8 @@ import java.util.Objects;
 
 public class HomePage extends AppCompatActivity {
 
+    public static final String EXTRA_CURRENT_ID = "com.example.fypfoodtruck.fypfoodtruck.EXTRA_CURRENT_ID";
+
 
     private RecyclerView menuRecycler;
     public static ArrayList<Item> arrayList = new ArrayList<>();
@@ -138,7 +140,12 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void ViewOrders(MenuItem item) {
-        /*startActivity(new Intent(getApplicationContext(), Orders.class));*/
+        /*startActivity(new Intent(getApplicationContext(), OrderActivity.class));*/
+        String currentId = businessId;
+        Intent intent = new Intent(this, OrderActivity.class);
+        intent.putExtra(EXTRA_CURRENT_ID, currentId);
+        startActivity(intent);
+
     }
 
 

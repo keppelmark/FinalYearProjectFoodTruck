@@ -30,6 +30,7 @@
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
     <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
+    <string name="message_no_orders">There are no orders at this time</string>
     <string name="message_no_reviews">Be the first to leave a review!</string>
     <string name="hint_review">How was your experience?</string>
     <string name="submit">Submit</string>

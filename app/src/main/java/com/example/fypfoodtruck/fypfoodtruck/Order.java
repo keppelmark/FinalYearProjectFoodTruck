@@ -6,6 +6,10 @@ public class Order {
     String date;
     int status;
 
+    public Order() {
+        //public no-arg constructor needed
+    }
+
     public Order(String customerId, String businessId, String date, int status) {
         this.customerId = customerId;
         this.businessId = businessId;

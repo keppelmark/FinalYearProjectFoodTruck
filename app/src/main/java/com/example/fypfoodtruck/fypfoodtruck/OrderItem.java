@@ -3,23 +3,23 @@ package com.example.fypfoodtruck.fypfoodtruck;
 import java.util.ArrayList;
 
 public class OrderItem {
-    /*String orderId;*/
+    String orderId;
     String item;
-    int quantity;
+    String quantity;
 
-    public OrderItem(String item, int quantity) {
-        /*this.orderId = orderId;*/
+    public OrderItem(String orderId, String item, String quantity) {
+        this.orderId = orderId;
         this.item = item;
         this.quantity = quantity;
     }
 
-   /* public String getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
-    }*/
+    }
 
     public String getItem() {
         return item;
@@ -29,11 +29,11 @@ public class OrderItem {
         this.item = item;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 }
