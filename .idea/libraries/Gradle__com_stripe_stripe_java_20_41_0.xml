@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.stripe:stripe-java:20.41.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.stripe/stripe-java/20.41.0/43048c949018c35d82b20a338e501b1b96709f5b/stripe-java-20.41.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.stripe/stripe-java/20.41.0/6e9ef9f9b45f6e30a3aa56f2cb9c919d950d60c4/stripe-java-20.41.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.stripe/stripe-java/20.41.0/1d957b2976d3f448547320d01a35338ea1ab9170/stripe-java-20.41.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
