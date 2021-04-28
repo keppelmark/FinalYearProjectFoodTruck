@@ -16,10 +16,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
-
 public class Login extends AppCompatActivity {
-    EditText email,password;
-    Button loginBtn,gotoRegister;
+    EditText email, password;
+    Button loginBtn, gotoRegister;
     boolean valid = true;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -37,25 +36,24 @@ public class Login extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
         gotoRegister = findViewById(R.id.gotoRegister);
 
-       loginBtn.setOnClickListener(v -> {
-           checkField(email);
-           checkField(password);
+        loginBtn.setOnClickListener(v -> {
+            checkField(email);
+            checkField(password);
 
-           if(valid){
-               fAuth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                   @Override
-                   public void onSuccess(AuthResult authResult) {
-                       Toast.makeText(Login.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
-                       checkUserAccessLevel(authResult.getUser().getUid());
-                   }
-               }).addOnFailureListener(e -> Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show());
+            if (valid) {
+                fAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        Toast.makeText(Login.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
+                        checkUserAccessLevel(authResult.getUser().getUid());
+                    }
+                }).addOnFailureListener(e -> Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show());
 
-           }
-       });
+            }
+        });
 
 
-        gotoRegister.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),Register.class)));
-
+        gotoRegister.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), Register.class)));
 
 
     }
@@ -65,31 +63,26 @@ public class Login extends AppCompatActivity {
         df.get().addOnSuccessListener(documentSnapshot -> {
             Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
 
-            if(documentSnapshot.getString("isBusiness") != null) {
+            if (documentSnapshot.getString("isBusiness") != null) {
 
-                /*Intent intent = new Intent(getApplicationContext(), HomePage.class);
-                intent.putExtra(HomePage.KEY_RESTAURANT_ID, documentSnapshot.getId());
 
-                startActivity(intent);*/
-
-                /*startActivity(new Intent(getApplicationContext(), MenuActivity.class));*/
-                startActivity(new Intent(getApplicationContext(),HomePage.class));
+                startActivity(new Intent(getApplicationContext(), HomePage.class));
                 finish();
             }
 
-            if(documentSnapshot.getString("isCustomer") != null){
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            if (documentSnapshot.getString("isCustomer") != null) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }
 
         });
     }
 
-    public boolean checkField(EditText textField){
-        if(textField.getText().toString().isEmpty()){
+    public boolean checkField(EditText textField) {
+        if (textField.getText().toString().isEmpty()) {
             textField.setError("Error");
             valid = false;
-        }else {
+        } else {
             valid = true;
         }
 

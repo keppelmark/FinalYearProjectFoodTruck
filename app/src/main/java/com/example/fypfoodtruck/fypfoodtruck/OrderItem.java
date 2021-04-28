@@ -1,14 +1,14 @@
 package com.example.fypfoodtruck.fypfoodtruck;
 
-import java.util.ArrayList;
-
 public class OrderItem {
     String orderId;
+    String itemName;
     String item;
     String quantity;
 
-    public OrderItem(String orderId, String item, String quantity) {
+    public OrderItem(String orderId, String itemName, String item, String quantity) {
         this.orderId = orderId;
+        this.itemName = itemName;
         this.item = item;
         this.quantity = quantity;
     }
@@ -27,6 +27,14 @@ public class OrderItem {
 
     public void setItem(String item) {
         this.item = item;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getQuantity() {

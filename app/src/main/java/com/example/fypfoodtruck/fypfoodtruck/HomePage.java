@@ -140,7 +140,6 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void ViewOrders(MenuItem item) {
-        /*startActivity(new Intent(getApplicationContext(), OrderActivity.class));*/
         String currentId = businessId;
         Intent intent = new Intent(this, OrderActivity.class);
         intent.putExtra(EXTRA_CURRENT_ID, currentId);

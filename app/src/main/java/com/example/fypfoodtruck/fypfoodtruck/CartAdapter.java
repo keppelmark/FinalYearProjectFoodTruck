@@ -25,9 +25,6 @@ import static com.example.fypfoodtruck.fypfoodtruck.CartActivity.grandTotalplus;
 import static com.example.fypfoodtruck.fypfoodtruck.CartActivity.temparraylist;
 
 
-
-
-
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     ArrayList<ProductImage> cartModelArrayList;
     Context context;
@@ -37,7 +34,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         this.cartModelArrayList = cartModelArrayList;
     }
 
-
     @NotNull
     @Override
     public CartAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,11 +42,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         return new CartAdapter.ViewHolder(v);
     }
 
-    @SuppressLint("CheckResult")
+    @SuppressLint({"CheckResult", "SetTextI18n"})
     @Override
     public void onBindViewHolder(final CartAdapter.ViewHolder holder, final int position) {
-        holder.productCartPrice.setText(String.valueOf(cartModelArrayList.get(position).getTotalCash()));
-        holder.productCartCode.setText(cartModelArrayList.get(position).getProductCode());
+        holder.productCartPrice.setText("€" + cartModelArrayList.get(position).getTotalCash());
+        holder.productCartName.setText(cartModelArrayList.get(position).getProductName());
         holder.productCartQuantity.setText(String.valueOf(cartModelArrayList.get(position).getProductQuantity()));
 
         RequestOptions requestOptions = new RequestOptions();
@@ -106,7 +102,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             int cash = (Integer.parseInt(cartModelArrayList.get(position).getProductPrice()) * (cartModelArrayList.get(position).getProductQuantity()));
 
             holder.productCartQuantity.setText(String.valueOf(cartModelArrayList.get(position).getProductQuantity()));
-            holder.productCartCode.setText(cartModelArrayList.get(position).getProductCode());
+            holder.productCartName.setText(cartModelArrayList.get(position).getProductName());
 
             cartModelArrayList.get(position).setTotalCash(cash);
             holder.productCartPrice.setText(String.valueOf(cash));
@@ -162,13 +158,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView productCartImage, cartIncrement, cartDecrement, deleteItem;
-        TextView productCartCode, productCartPrice, productCartQuantity;
+        TextView productCartName, productCartPrice, productCartQuantity;
 
         public ViewHolder(View itemView) {
             super(itemView);
             productCartImage = itemView.findViewById(R.id.list_image_cart);
             deleteItem = itemView.findViewById(R.id.delete_item_from_cart);
-            productCartCode = itemView.findViewById(R.id.product_cart_code);
+            productCartName = itemView.findViewById(R.id.product_cart_name);
             productCartPrice = itemView.findViewById(R.id.product_cart_price);
             productCartQuantity = itemView.findViewById(R.id.cart_product_quantity_tv);
             cartDecrement = itemView.findViewById(R.id.cart_decrement);

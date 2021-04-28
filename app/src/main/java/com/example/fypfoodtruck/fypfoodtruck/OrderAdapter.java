@@ -32,10 +32,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
 
-/**
- * RecyclerView adapter for a list of Restaurants.*/
-
-
 public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder> {
 
     public interface OnRestaurantSelectedListener {
@@ -92,7 +88,6 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder> {
             customerView.setText(order.getCustomerId());
             dateView.setText(order.getDate());
             statusView.setText("" + order.getStatus());
-
 
 
             // Click listener

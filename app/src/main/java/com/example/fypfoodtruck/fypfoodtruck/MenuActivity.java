@@ -78,7 +78,7 @@ public class MenuActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                            /*Log.d(TAG, document.getId() + " => " + document.getData());*/
+
                             Business business = document.toObject(Business.class);
 
                             if (Objects.equals(business.getUserId(), userId)) {

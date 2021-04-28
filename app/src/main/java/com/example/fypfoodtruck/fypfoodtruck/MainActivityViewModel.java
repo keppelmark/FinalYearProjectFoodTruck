@@ -2,9 +2,6 @@ package com.example.fypfoodtruck.fypfoodtruck;
 
 import androidx.lifecycle.ViewModel;
 
-//*
-// * ViewModel for {@link com.example.fypfoodtruck.fypfoodtruck.MainActivity}.
-
 
 public class MainActivityViewModel extends ViewModel {
 

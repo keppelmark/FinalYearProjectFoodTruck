@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final String TAG = "MainActivity";
 
-    /*private static final int RC_SIGN_IN = 9001;*/
 
     private static final int LIMIT = 50;
 

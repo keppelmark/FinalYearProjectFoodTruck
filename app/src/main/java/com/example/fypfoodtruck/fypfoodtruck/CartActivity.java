@@ -31,6 +31,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.example.fypfoodtruck.fypfoodtruck.ProductAdapter.cartModels;
@@ -81,9 +83,7 @@ public class CartActivity extends AppCompatActivity {
         mToolbar.setNavigationOnClickListener(v -> {
 
             grandTotalplus = 0;
-            for (int i = 0; i < temparraylist.size(); i++) {
 
-            }
             cartModels.addAll(temparraylist);
             MenuDetailActivity.cart_count = (temparraylist.size());
             finish();
@@ -121,28 +121,36 @@ public class CartActivity extends AppCompatActivity {
         Order order = new Order(customerId, businessId, date.toString(), 1);
 
         orderRef.add(order).addOnSuccessListener(documentReference -> {
-            TextView itemView = findViewById(R.id.product_cart_code);
-            String itemId = itemView.getText().toString();
-            TextView quantityView = findViewById(R.id.cart_product_quantity_tv);
-            String quantity = quantityView.getText().toString();
-            Toast.makeText(CartActivity.this, itemId, Toast.LENGTH_SHORT).show();
+
+
             DocumentReference docRef = orderRef.document(documentReference.getId());
 
-            String orderId = docRef.getId();
-            OrderItem orderItem = new OrderItem(orderId, itemId, quantity);
+            for (int i = 0; i < temparraylist.size(); i++) {
+                Map<String, Object> docData = new HashMap<>();
+                String orderId = docRef.getId();
+                docData.put("orderId", orderId);
+                docData.put("itemName", temparraylist.get(i).getProductName());
+                docData.put("item", temparraylist.get(i).getProductCode());
+                docData.put("quantity", temparraylist.get(i).productQuantity);
 
 
-            docRef.collection("OrderItems").add(orderItem);
+                OrderItem orderItem = new OrderItem(Objects.requireNonNull(docData.get("orderId")).toString(), Objects.requireNonNull(docData.get("itemName")).toString(), Objects.requireNonNull(docData.get("item")).toString(), Objects.requireNonNull(docData.get("quantity")).toString());
 
 
-            TextView textView = findViewById(R.id.grand_total_cart);
+                DocumentReference subRef = docRef.collection("OrderItems").document();
+                subRef.set(orderItem);
 
-            int number = Integer.parseInt(textView.getText().toString());
-            Intent intent = new Intent(this, CheckoutActivity.class);
-            intent.putExtra(EXTRA_NUMBER, number);
-            intent.putExtra(EXTRA_ORDERID, orderId);
 
-            startActivity(intent);
+                TextView textView = findViewById(R.id.grand_total_cart);
+
+                int number = Integer.parseInt(textView.getText().toString());
+                Intent intent = new Intent(this, CheckoutActivity.class);
+                intent.putExtra(EXTRA_NUMBER, number);
+                intent.putExtra(EXTRA_ORDERID, orderId);
+
+
+                startActivity(intent);
+            }
 
 
         });

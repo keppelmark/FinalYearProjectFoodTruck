@@ -1,6 +1,5 @@
 package com.example.fypfoodtruck.fypfoodtruck;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
-
 
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.ViewHolder> {
@@ -24,7 +21,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     }
 
 
-
     @NonNull
     @Override
     public OrderItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -34,7 +30,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull OrderItemAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.productName.setText(ordersArray.get(i).getItem());
+        viewHolder.productName.setText(ordersArray.get(i).getItemName());
         viewHolder.productId.setText(ordersArray.get(i).getQuantity());
 
     }
@@ -46,15 +42,15 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-            TextView productName;
-            TextView productId;
+        TextView productName;
+        TextView productId;
 
-            ViewHolder(View itemView) {
-                super(itemView);
-                productName = itemView.findViewById(R.id.android_gridview_text);
-                productId = itemView.findViewById(R.id.android_itemId);
-            }
+        ViewHolder(View itemView) {
+            super(itemView);
+            productName = itemView.findViewById(R.id.android_gridview_text);
+            productId = itemView.findViewById(R.id.android_itemId);
         }
     }
+}
 
 

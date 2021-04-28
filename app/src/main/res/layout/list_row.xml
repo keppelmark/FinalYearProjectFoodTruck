@@ -38,7 +38,7 @@
 
 
         <TextView
-            android:id="@+id/product_cart_code"
+            android:id="@+id/product_cart_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/product_cart_code"
+            android:layout_below="@+id/product_cart_name"
             android:orientation="horizontal" >
 
 

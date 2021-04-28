@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class OrderDetailActivity extends AppCompatActivity {
 
@@ -60,14 +61,15 @@ public class OrderDetailActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
 
 
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                             Log.d("fb", document.getId() + " => " + document.getData());
                             try {
                                 String orderId = document.getString("orderId");
+                                String itemName = document.getString("itemName");
                                 String item = document.getString("item");
                                 String quantity = document.getString("quantity");
 
-                                arrayList.add(new OrderItem(orderId, item, quantity));
+                                arrayList.add(new OrderItem(orderId, itemName, item, quantity));
                                 orderItemAdapter.notifyItemInserted(arrayList.size() - 1);
 
 

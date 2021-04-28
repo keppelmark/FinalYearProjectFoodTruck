@@ -89,7 +89,6 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         Intent intent = getIntent();
         orderId = intent.getStringExtra(CartActivity.EXTRA_ORDERID);
-        Toast.makeText(CheckoutActivity.this, orderId, Toast.LENGTH_SHORT).show();
         int number = intent.getIntExtra(CartActivity.EXTRA_NUMBER, 0);
         amountText = findViewById(R.id.amount_id);
         amountText.setText("" + number);
