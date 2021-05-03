@@ -129,6 +129,10 @@ public class HomePage extends AppCompatActivity {
         inflater.inflate(R.menu.item_menu, menu);
         return true;
     }
+    public void Refresh(MenuItem item) {
+        finish();
+        startActivity(getIntent());
+    }
 
 
     public void AddItem(MenuItem item) {
