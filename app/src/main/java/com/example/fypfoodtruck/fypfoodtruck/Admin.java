@@ -93,7 +93,7 @@ public class Admin extends AppCompatActivity {
         String userId = user.getUid();
         Business business = new Business(name, category, address, county, number, website, userId);
         userRef.add(business);
-        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+        startActivity(new Intent(getApplicationContext(), HomePage.class));
     }
 }
 

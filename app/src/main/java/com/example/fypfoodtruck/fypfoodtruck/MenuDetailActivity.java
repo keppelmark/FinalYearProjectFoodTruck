@@ -136,6 +136,9 @@ public class MenuDetailActivity extends AppCompatActivity implements ProductAdap
 
         return true;
     }
+    public void SignOut(MenuItem item) {
+        startActivity(new Intent(getApplicationContext(), Login.class));
+    }
 
     @Override
     public void updateCartCount(Context context) {

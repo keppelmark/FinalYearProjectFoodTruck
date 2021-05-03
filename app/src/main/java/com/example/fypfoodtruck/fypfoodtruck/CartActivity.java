@@ -12,12 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,11 +56,13 @@ public class CartActivity extends AppCompatActivity {
     Context context;
     private String businessId;
     private String customerId;
+    private String customerName;
     FirebaseAuth fAuth;
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference orderRef = db.collection("Orders");
+    private CollectionReference userRef = db.collection("Users");
 
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
@@ -118,7 +122,7 @@ public class CartActivity extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
 
-        Order order = new Order(customerId, businessId, date.toString(), 1);
+        Order order = new Order(customerName, customerId, businessId, date.toString(), 1);
 
         orderRef.add(order).addOnSuccessListener(documentReference -> {
 
@@ -179,6 +183,23 @@ public class CartActivity extends AppCompatActivity {
 
         // query customerId
         customerId = fAuth.getCurrentUser().getUid();
+        DocumentReference docRef = userRef.document(customerId);
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document != null) {
+                    Log.i("LOGGER","Full Name :"+document.getString("FullName"));
+                    customerName = document.getString("FullName");
+
+                } else {
+                    Log.d("LOGGER", "No such document");
+                }
+            } else {
+                Log.d("LOGGER", "get failed with ", task.getException());
+            }
+        });
+
+
 
 
         Bundle extras = getIntent().getExtras();

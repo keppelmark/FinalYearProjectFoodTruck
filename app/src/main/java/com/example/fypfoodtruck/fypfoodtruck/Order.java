@@ -1,6 +1,7 @@
 package com.example.fypfoodtruck.fypfoodtruck;
 
 public class Order {
+    String customerName;
     String customerId;
     String businessId;
     String date;
@@ -10,13 +11,21 @@ public class Order {
         //public no-arg constructor needed
     }
 
-    public Order(String customerId, String businessId, String date, int status) {
+    public Order(String customerName, String customerId, String businessId, String date, int status) {
+        this.customerName = customerName;
         this.customerId = customerId;
         this.businessId = businessId;
         this.date = date;
         this.status = status;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
     public String getCustomerId() {
         return customerId;

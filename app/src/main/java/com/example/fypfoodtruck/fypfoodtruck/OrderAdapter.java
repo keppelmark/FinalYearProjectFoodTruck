@@ -1,26 +1,13 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-
 package com.example.fypfoodtruck.fypfoodtruck;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,11 +15,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /*import com.bumptech.glide.Glide;
 import com.google.firebase.example.fireeats.util.RestaurantUtil;*/
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder> {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore mFirestore;
+    private Query mQuery;
 
     public interface OnRestaurantSelectedListener {
 
@@ -47,8 +46,10 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder> {
         mListener = listener;
     }
 
+
     @NonNull
     @Override
+
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return new ViewHolder(inflater.inflate(R.layout.list_orders, parent, false));
@@ -62,19 +63,20 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView businessView;
         TextView customerView;
         TextView dateView;
         TextView statusView;
+        CheckBox check;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            businessView = itemView.findViewById(R.id.list_business);
+
             customerView = itemView.findViewById(R.id.list_customer);
             dateView = itemView.findViewById(R.id.list_date);
             statusView = itemView.findViewById(R.id.list_status);
+            check = itemView.findViewById(R.id.checkbox);
 
         }
 
@@ -84,10 +86,29 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder> {
             Order order = snapshot.toObject(Order.class);
             Resources resources = itemView.getResources();
 
-            businessView.setText(order.getBusinessId());
-            customerView.setText(order.getCustomerId());
-            dateView.setText(order.getDate());
-            statusView.setText("" + order.getStatus());
+            customerView.setText("Customer : " + order.getCustomerName());
+            Date date = new Date(order.getDate());
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat DateFor = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            String stringDate = DateFor.format(date);
+            dateView.setText("Date : " + stringDate);
+
+            String status = "Status :";
+            if (order.getStatus() == 1) {
+                status += " Ordered";
+            } else if (order.getStatus() == 2) {
+                status += " Paid";
+
+            } else if (order.getStatus() == 3) {
+                status += " Collected";
+
+            }
+            statusView.setText(status);
+            check.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    statusView.setText("Status : Collected");
+                }
+
+            });
 
 
             // Click listener

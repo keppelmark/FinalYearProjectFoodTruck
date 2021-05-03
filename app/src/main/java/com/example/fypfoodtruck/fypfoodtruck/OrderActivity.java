@@ -83,7 +83,8 @@ public class OrderActivity extends AppCompatActivity implements
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
                     mOrdersRecycler.setVisibility(View.GONE);
-                    mEmptyView.setVisibility(View.VISIBLE);
+                    /*mEmptyView.setVisibility(View.VISIBLE);*/
+                    Toast.makeText(OrderActivity.this, "No orders at this time", Toast.LENGTH_SHORT).show();
                 } else {
                     mOrdersRecycler.setVisibility(View.VISIBLE);
                     /*mEmptyView.setVisibility(View.GONE);*/

@@ -68,8 +68,6 @@ public class CheckoutActivity extends AppCompatActivity {
     CardMultilineWidget cardInputWidget;
     Button payButton;
     FirebaseAuth fAuth;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference orderRef = db.collection("Orders");
     private String orderId;
 
     // we need paymentIntentClientSecret to start transaction
@@ -239,7 +237,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 // Payment completed successfully
                 updateOrder();
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Toast toast = Toast.makeText(activity, "Ordered Successful", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(activity, "Your order is being prepared", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
