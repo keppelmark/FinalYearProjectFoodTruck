@@ -188,7 +188,6 @@ public class CartActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document != null) {
-                    Log.i("LOGGER","Full Name :"+document.getString("FullName"));
                     customerName = document.getString("FullName");
 
                 } else {
