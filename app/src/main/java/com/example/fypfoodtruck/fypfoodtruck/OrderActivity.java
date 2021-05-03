@@ -47,8 +47,6 @@ public class OrderActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-        /*CheckBox simpleCheckBox = findViewById(R.id.simpleCheckBox);
-        simpleCheckBox.setChecked(true);*/
         mOrdersRecycler = findViewById(R.id.recycler_orders);
         mEmptyView = findViewById(R.id.view_empty);
         Intent intent = getIntent();
@@ -83,11 +81,10 @@ public class OrderActivity extends AppCompatActivity implements
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
                     mOrdersRecycler.setVisibility(View.GONE);
-                    /*mEmptyView.setVisibility(View.VISIBLE);*/
                     Toast.makeText(OrderActivity.this, "No orders at this time", Toast.LENGTH_SHORT).show();
                 } else {
                     mOrdersRecycler.setVisibility(View.VISIBLE);
-                    /*mEmptyView.setVisibility(View.GONE);*/
+
                 }
             }
 

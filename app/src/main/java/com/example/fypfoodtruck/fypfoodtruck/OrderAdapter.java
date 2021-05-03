@@ -88,7 +88,7 @@ public class OrderAdapter extends FirestoreAdapter<OrderAdapter.ViewHolder> {
 
             customerView.setText("Customer : " + order.getCustomerName());
             Date date = new Date(order.getDate());
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat DateFor = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat DateFor = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String stringDate = DateFor.format(date);
             dateView.setText("Date : " + stringDate);
 
