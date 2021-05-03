@@ -6,6 +6,7 @@ public class ProductImage {
     private Integer imageId;
     private String productName;
     private String productCode;
+    private String productDuration;
     private String dealerPrice;
     private String resellerPrice;
     private Integer stocks;
@@ -17,10 +18,11 @@ public class ProductImage {
     public ProductImage() {
     }
 
-    public ProductImage(String productName, String productPrice, int productQuantity, Integer productImage ) {
+    public ProductImage(String productName, String productPrice, String productDuration, int productQuantity, Integer productImage ) {
         this.productImage = productImage;
         this.productQuantity = productQuantity;
         this.productPrice = productPrice;
+        this.productDuration = productDuration;
         this.productName = productName;
     }
 
@@ -30,6 +32,14 @@ public class ProductImage {
 
     public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
+    }
+
+    public String getProductDuration() {
+        return productDuration;
+    }
+
+    public void setProductDuration(String productDuration) {
+        this.productDuration = productDuration;
     }
 
     public int getPos() {

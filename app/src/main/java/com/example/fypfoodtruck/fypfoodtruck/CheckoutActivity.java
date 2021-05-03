@@ -69,6 +69,7 @@ public class CheckoutActivity extends AppCompatActivity {
     Button payButton;
     FirebaseAuth fAuth;
     private String orderId;
+    private String duration;
 
     // we need paymentIntentClientSecret to start transaction
     private String paymentIntentClientSecret;
@@ -87,6 +88,7 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         Intent intent = getIntent();
         orderId = intent.getStringExtra(CartActivity.EXTRA_ORDERID);
+        duration = intent.getStringExtra(CartActivity.EXTRA_DURATION);
         int number = intent.getIntExtra(CartActivity.EXTRA_NUMBER, 0);
         amountText = findViewById(R.id.amount_id);
         amountText.setText("" + number);
@@ -237,7 +239,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 // Payment completed successfully
                 updateOrder();
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Toast toast = Toast.makeText(activity, "Your order is being prepared", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(activity, "Payment successful ! Your order will be ready for collection in " + duration, Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {

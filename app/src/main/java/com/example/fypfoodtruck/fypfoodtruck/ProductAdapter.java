@@ -93,6 +93,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 cartModel.setProductPrice(arrayList.get(i).getPrice());
                 cartModel.setProductCode(arrayList.get(i).getDocumentId());
                 cartModel.setProductName(arrayList.get(i).getProduct());
+                cartModel.setProductDuration(arrayList.get(i).getDuration());
                 cartModel.setTotalCash(cartCounter[0] *
                         Integer.parseInt(arrayList.get(i).getPrice()));
                 Log.d("pos", String.valueOf(i));

@@ -44,6 +44,7 @@ import static com.example.fypfoodtruck.fypfoodtruck.ProductAdapter.productsArray
 public class CartActivity extends AppCompatActivity {
     public static final String EXTRA_NUMBER = "com.example.fypfoodtruck.fypfoodtruck.EXTRA_NUMBER";
     public static final String EXTRA_ORDERID = "com.example.fypfoodtruck.fypfoodtruck.EXTRA_ORDERID";
+    public static final String EXTRA_DURATION = "com.example.fypfoodtruck.fypfoodtruck.EXTRA_DURATION";
 
     @SuppressLint("StaticFieldLeak")
     public static TextView grandTotal;
@@ -148,9 +149,11 @@ public class CartActivity extends AppCompatActivity {
                 TextView textView = findViewById(R.id.grand_total_cart);
 
                 int number = Integer.parseInt(textView.getText().toString());
+                String duration = temparraylist.get(i).getProductDuration();
                 Intent intent = new Intent(this, CheckoutActivity.class);
                 intent.putExtra(EXTRA_NUMBER, number);
                 intent.putExtra(EXTRA_ORDERID, orderId);
+                intent.putExtra(EXTRA_DURATION, duration);
 
 
                 startActivity(intent);
